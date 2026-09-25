@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Release Documentation Lifecycle — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem 1.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+  h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--ink-soft); margin: 1.5rem 0 0.6rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+  a.inline-link { color: var(--accent); }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 0 1.75rem 0;
+    font-size: 0.88rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink);
+    background: var(--sidebar-bg);
+  }
+  td code { white-space: nowrap; }
+
+  figure { margin: 0 0 1.5rem 0; }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  figcaption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.4rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>Release Documentation Lifecycle</h1>
+  <div class="tags">
+    <span class="tag">#release-management</span>
+    <span class="tag">#governance</span>
+    <span class="tag">#information-architecture</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Product documentation was maintained in release-specific Confluence spaces, while engineering and product work was managed in Azure DevOps.  </p>
+  <p>
+    As each release progressed, documentation work needed to be managed alongside the related product work: handling requests, tracking updates, monitoring progress, and reporting customer-facing issues.  </p>
+
+  <h2>My role</h2>
+  <p>
+    I managed the documentation workflow throughout each release — handling requests, tracking changes, monitoring documentation status, publishing across  multiple channels, and maintaining customer-facing release information.  </p>
+  <p>
+    Some of these processes and systems I designed myself; others I inherited and took ownership of.
+  </p>
+
+  <h2>Documentation lifecycle & publishing</h2>
+  <p>
+    Each release had its own Confluence space containing 30+ product guides. The guides were published as PDFs through SharePoint and maintained in a customer-facing portal.
+  </p>
+  <p>
+    I managed the publishing workflow end to end: maintaining the source documentation in Confluence, exporting the guides to PDF, applying and maintaining the custom CSS, publishing the PDFs to SharePoint, and uploading approved content to the customer portal.
+  </p>
+
+<svg width="100%" viewBox="0 0 680 250" role="img" style="max-width:var(--max-text); display:block; margin-bottom:1.5rem;">
+    <title>Documentation publishing pipeline</title>
+    <desc>Confluence holds the source documentation for a release, with 30+ guides. PDFs are exported to SharePoint. Confluence content is also published directly to the Zoomin customer portal.</desc>
+    <defs>
+      <marker id="pub-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <rect x="20" y="70" width="180" height="60" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="110" y="94" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--accent)">Confluence</text>
+    <text x="110" y="114" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--accent)">30+ guides, per release</text>
+
+    <line x1="200" y1="100" x2="240" y2="100" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#pub-arrow)"/>
+
+    <rect x="244" y="70" width="180" height="60" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="334" y="94" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">PDF export</text>
+    <text x="334" y="114" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Custom CSS system</text>
+
+    <line x1="424" y1="90" x2="480" y2="45" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#pub-arrow)"/>
+
+    <rect x="484" y="20" width="176" height="50" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="572" y="50" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">SharePoint</text>
+
+    <rect x="484" y="140" width="176" height="50" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="572" y="164" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Zoomin</text>
+    <text x="572" y="181" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Customer portal</text>
+
+    <path d="M110,130 L110,210 L480,210 L480,190" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#pub-arrow)"/>
+    <text x="295" y="225" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--accent)">Confluence → Zoomin</text>
+  </svg>
+
+  <h2>Documentation change request process</h2>
+  <p>
+    Documentation requests came from several sources — content corrections, product changes, customer issues — with no consistent way to route or scope them. I formalized a request model that defined the appropriate path for each type of change and connected documentation work to the relevant engineering or product work item.
+  </p>
+
+<svg width="100%" viewBox="0 0 680 400" role="img" style="max-width:var(--max-text); display:block; margin-bottom:1.75rem;">
+  <title>Documentation change request routing</title>
+  <desc>A documentation request is classified into one of four paths — quick fix, bug, feature update, or customer issue — each producing a release-specific documentation update.</desc>
+  <defs>
+    <marker id="req-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="230" y="20" width="220" height="44" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+  <text x="340" y="46" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Documentation request</text>
+
+  <line x1="340" y1="64" x2="340" y2="90" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+
+  <rect x="230" y="94" width="220" height="44" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+  <text x="340" y="120" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--accent)">Classify the change</text>
+
+  <line x1="340" y1="138" x2="86" y2="188" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+  <line x1="340" y1="138" x2="256" y2="188" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+  <line x1="340" y1="138" x2="426" y2="188" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+  <line x1="340" y1="138" x2="596" y2="188" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+
+  <rect x="8" y="190" width="155" height="80" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+  <text x="86" y="212" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Quick fix</text>
+  <text x="86" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Minor documentation</text>
+  <text x="86" y="244" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">correction</text>
+
+  <rect x="178" y="190" width="155" height="80" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+  <text x="256" y="212" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Bug</text>
+  <text x="256" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Documentation</text>
+  <text x="256" y="244" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">issue</text>
+
+  <rect x="348" y="190" width="155" height="80" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+  <text x="426" y="212" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Feature update</text>
+  <text x="426" y="228" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Feature</text>
+  <text x="426" y="242" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">documentation</text>
+  <text x="426" y="256" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">update</text>
+
+  <rect x="518" y="190" width="155" height="80" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+  <text x="596" y="212" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Customer issue</text>
+  <text x="596" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Support request</text>
+
+  <line x1="86" y1="270" x2="86" y2="296" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="256" y1="270" x2="256" y2="296" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="426" y1="270" x2="426" y2="296" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="596" y1="270" x2="596" y2="296" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="86" y1="296" x2="596" y2="296" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="340" y1="296" x2="340" y2="322" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#req-arrow)"/>
+
+  <rect x="210" y="326" width="260" height="44" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+  <text x="340" y="352" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--accent)">Release-specific update</text>
+</svg>
+
+  <p>
+    I also defined release-specific rules for determining which documentation versions needed to be updated and republished. Changes could apply to the current release, the previous release, or both, depending on their scope and significance.
+  </p>
+
+
+  <h2>Release documentation status </h2>
+  <p>
+    Release planning required a clear view of documentation status across the features being shipped.
+  </p>
+  <p>
+    I learned to build this dashboard from a colleague and, after they left the team, became solely responsible for creating it for each new release, separating committed features from best-effort ones.
+  </p>
+<figure style="display: inline-block; margin: 0;">
+    <img src="../assets/images/docops-release-readiness.png" alt="..." style="width: auto; max-width: 100%; max-height: 420px; display: block;">
+    <figcaption style="text-align: left; margin-top: 8px;">Documentation status dashboard — Committed vs. Best Effort features</figcaption>
+</figure>
+  <p>
+    The dashboard provided a single view of documentation status across the release, from Not Started and In Progress to Doc Reviewed and Doc Done.
+  </p>
+
+  <h2>Documentation change tracking</h2>
+  <p>
+    I designed a label-based tracking system in Confluence to identify documentation changes across releases and 30+ product guides. The system made it easy to see at a glance what was new or updated.
+  </p>
+  <figure>
+   <img src="../assets/images/docops-change-tracking.png" alt="Confluence page showing lists of new and updated documentation sections, each tagged with a work item number, guide label, and review status" style="filter: none;">
+   <figcaption>Label-driven change tracking — new and updated documentation by guide, work item, and status. Example content shown for confidentiality.</figcaption>
+ </figure>
+
+  <h2>Customer issue reporting</h2>
+  <p>
+    Each release included a summary of known and resolved customer issues, generated from Azure DevOps queries that I built and maintain.  </p>
+  <p>
+   
+
+  <h2>Result</h2>
+  <p>
+    The workflow provided a consistent way to manage documentation throughout a release — from routing requests and tracking changes to publishing content and reporting customer issues.
+  </p>
+
+
+</div>
+</body>
+</html>

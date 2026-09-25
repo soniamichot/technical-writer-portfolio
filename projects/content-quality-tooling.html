@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Quality Tooling — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/powershell.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem 1.5rem; }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+
+  .code-block { border-radius: 6px; overflow: hidden; margin: 0 0 2rem 0; }
+  .code-block pre { margin: 0; }
+  .code-block code {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+    padding: 1.1rem 1.3rem !important;
+    display: block;
+    overflow-x: auto;
+  }
+  .code-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); margin: 0 0 0.5rem 0; }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.4rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>Content Quality Tooling</h1>
+  <div class="tags">
+    <span class="tag">#powershell</span>
+    <span class="tag">#python</span>
+    <span class="tag">#automation</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Some documentation quality issues only became visible during the publishing process — internal PDF cross-references that didn't work as expected, and Unicode and encoding issues introduced during content migrations.
+  </p>
+  <p>
+    I built two small PowerShell and Python tools to detect and address these issues, since checking dozens of guides manually was not practical.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I identified both problems, investigated their underlying causes through testing, and independently built both tools, using AI assistance for the code.
+  </p>
+
+  <h2>Cross-reference validation</h2>
+  <p>
+    Some internal cross-references worked correctly in Confluence but, after PDF export, opened the Confluence page instead of the corresponding section in the PDF. This is a documented Confluence export behavior affecting internal and anchor links.
+  </p>
+  <p>
+    I built a PowerShell tool to scan exported HTML for links that incorrectly pointed back to Confluence. I also adapted it to scan the exported PDFs, allowing the same issue to be checked both before and after export.
+   </p>
+  <p>
+    After validating the approach, I used the HTML check as part of the regular workflow to catch affected links before generating the PDFs.
+   </p>
+
+  <svg width="100%" viewBox="0 0 680 230" role="img" style="max-width:var(--max-text); display:block; margin-bottom:1.5rem;">
+    <title>Cross-reference export behavior</title>
+    <desc>A cross-reference authored in Confluence, once exported to PDF, either opens the Confluence page in a browser (the bug) or jumps to the correct section within the PDF (the fix), depending on how the link was created.</desc>
+    <defs>
+      <marker id="cq-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <rect x="250" y="10" width="180" height="50" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="340" y="40" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Confluence cross-reference</text>
+    <line x1="340" y1="60" x2="340" y2="86" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#cq-arrow)"/>
+    <rect x="250" y="90" width="180" height="40" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="340" y="115" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" font-weight="500" fill="var(--accent)">PDF export</text>
+
+    <line x1="340" y1="130" x2="340" y2="152" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#cq-arrow)"/>
+
+    <text x="340" y="172" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#B0463A">❌ Actual: Opens Confluence page</text>
+    <text x="340" y="194" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink-soft)">vs.</text>
+    <text x="340" y="216" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#3F7A4F">✅ Expected: Jumps to PDF section</text>
+  </svg>
+
+  <div class="code-label">The core detection logic:</div>
+<div class="code-block"><pre><code class="language-powershell">$confluenceLinkPattern = 'href="(https://[^"]*\.atlassian\.net/wiki/[^"]+)"'</code></pre></div>
+
+  <div class="callout">
+    Finding the issue was only part of the work. I tested different approaches to identify a reliable fix and documented the findings in the tool's generated report.
+  </div>
+
+  <h2>Unicode & encoding cleanup</h2>
+  <p>
+    Content migrated between platforms sometimes contained corrupted characters caused by encoding problems. These issues, often appearing as mojibake, were difficult to identify and correct manually across large amounts of content. I built a Python tool using the Confluence REST API to find and clean up these patterns across a space or page tree.
+  </p>
+  <p>
+    Because the tool writes changes back to live Confluence pages, safety was a key consideration. A dry-run mode previews every change before it is applied, while a protection step shields code blocks, panels, and other structured macros from text replacements.
+  </p>
+
+  <div class="code-label">Safety checks in the cleanup script</div>
+<div class="code-block"><pre><code class="language-python">DRY_RUN = True  # ALWAYS start with True — review the printed preview
+                 # of every change before ever setting this to False.
+
+# Confluence storage format tags to protect from replacement
+PROTECTED_TAGS = [
+    (..., "code macro"),
+    (..., "panel macro"),
+    (..., "inline code"),
+    (..., "pre block"),
+]</code></pre></div>
+
+  <h2>Result</h2>
+  <p>
+    Both tools turned manual quality checks into repeatable checks that could run across an entire documentation set in minutes — one detecting broken cross-references before PDF export, the other cleaning up encoding issues without altering protected content.
+  </p>
+
+</div>
+</body>
+</html>

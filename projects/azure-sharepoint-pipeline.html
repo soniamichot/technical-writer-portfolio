@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azure DevOps → SharePoint Pipeline — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/powershell.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem 1.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+  h3 { font-size: 1.05rem; margin: 2rem 0 0.75rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+
+  .code-block {
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 0 2rem 0;
+  }
+  .code-block pre { margin: 0; }
+  .code-block code {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+    padding: 1.1rem 1.3rem !important;
+    display: block;
+    overflow-x: auto;
+  }
+  .code-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 0 0 2rem 0;
+  }
+  .compare-col .col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    background: var(--sidebar-bg);
+    color: var(--ink-soft);
+  }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  .steps {
+    counter-reset: step;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    max-width: var(--max-text);
+  }
+  .steps li {
+    list-style: none;
+    counter-increment: step;
+    position: relative;
+    padding-left: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--ink-soft);
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 50%;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .steps strong { display: block; color: var(--ink); margin-bottom: 0.15rem; }
+
+  figure { margin: 0 0 1.5rem 0; }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  figcaption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>Azure DevOps → SharePoint Sync Pipeline</h1>
+  <div class="tags">
+    <span class="tag">#cicd</span>
+    <span class="tag">#automation</span>
+    <span class="tag">#governance</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Internal documentation, including release-related Excel files such as new Solution Package descriptions, was being uploaded directly to SharePoint. There was no version control, review process, or link to the  work item (user story or bug) behind the change.
+  </p>
+  <p>
+    I identified this as a governance gap and built a pipeline to address it. Contributors now work in a Git repo on their own branch, with a required reviewer and a linked Azure DevOps work item. Only after changes are merged into <code>main</code> does the pipeline automatically sync the approved content to SharePoint.
+  </p>
+  <p>
+    SharePoint became a read-only mirror of reviewed content, rather than a place where anyone could edit files directly.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+   I identified the problem and designed the new documentation workflow, then independently built and maintained the pipeline. I also created a PDF guide for developers explaining the new submission process.
+  </p>
+  <p>
+   I tested and validated the pipeline from its initial implementation through subsequent troubleshooting. I used AI assistance throughout the project, from building the original pipeline to diagnosing and rebuilding it after Microsoft retired the legacy authentication method it depended on.
+  </p>
+
+  <h2>Workflow and technical implementation</h2>
+  <p>
+    The CI/CD pipeline automatically syncs approved changes from the Git repo to SharePoint after they are merged into main.
+  </p>
+
+  <svg width="100%" viewBox="0 0 680 520" role="img" style="max-width:var(--max-text); display:block; margin-bottom:1.5rem;">
+    <title>Documentation workflow diagram</title>
+    <desc>A contributor creates a branch linked to an Azure DevOps work item, the change goes through required review, is merged to main, then a CI/CD pipeline mirror-syncs the approved content to a read-only SharePoint mirror.</desc>
+    <defs>
+      <marker id="wf-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <rect x="160" y="20" width="360" height="64" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="340" y="46" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Contributor creates a branch</text>
+    <text x="340" y="66" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Linked to an Azure DevOps work item</text>
+
+    <line x1="340" y1="84" x2="340" y2="120" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#wf-arrow)"/>
+
+    <rect x="160" y="124" width="360" height="64" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="340" y="162" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Required review</text>
+
+    <line x1="340" y1="188" x2="340" y2="224" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#wf-arrow)"/>
+
+    <rect x="160" y="228" width="360" height="64" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="340" y="266" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">Merge to main</text>
+
+    <line x1="340" y1="292" x2="340" y2="328" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#wf-arrow)"/>
+
+    <rect x="160" y="332" width="360" height="64" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="340" y="358" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--accent)">CI/CD pipeline</text>
+    <text x="340" y="378" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--accent)">Mirror sync</text>
+
+    <line x1="340" y1="396" x2="340" y2="432" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#wf-arrow)"/>
+
+    <rect x="160" y="436" width="360" height="64" rx="6" fill="var(--sidebar-bg)" stroke="var(--line)" stroke-width="1"/>
+    <text x="340" y="462" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" font-weight="500" fill="var(--ink)">SharePoint</text>
+    <text x="340" y="482" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink-soft)">Read-only mirror</text>
+  </svg>
+
+  <h3>Same sync logic, two authentication methods</h3>
+  <p>
+    The pipeline uses a two-phase mirror sync: first, it removes files from SharePoint that no longer exist in the repo; then, it uploads the current set. When Microsoft retired the original authentication method (PnP.PowerShell using Azure ACS), I rebuilt the same sync logic using the Microsoft Graph API.
+  </p>
+
+  <div class="compare">
+    <div class="compare-col">
+      <span class="col-label">BEFORE — PnP.PowerShell</span>
+      <div class="code-label">sync-to-sharepoint.yml (remove orphaned files)</div>
+      <div class="code-block"><pre><code class="language-powershell">$spFiles = Get-PnPFolderItem -FolderSiteRelativeUrl $folder -ItemType File
+
+foreach ($spFile in $spFiles) {
+  $shouldExist = # ... check against local files ...
+  if (-not $shouldExist) {
+    Remove-PnPFile -SiteRelativeUrl "$folder/$($spFile.Name)" -Force
+  }
+}</code></pre></div>
+    </div>
+    <div class="compare-col">
+      <span class="col-label">AFTER — Microsoft Graph</span>
+      <div class="code-label">sync-to-sharepoint.yml — Microsoft Graph version (remove orphaned files)</div>
+      <div class="code-block"><pre><code class="language-powershell">$items = Get-GraphFolderContents -DriveId $driveId -FolderPath $folder -Headers $headers
+$spFiles = $items | Where-Object { $_.file }
+
+foreach ($spFile in $spFiles) {
+  $shouldExist = # ... check against local files ...
+  if (-not $shouldExist) {
+    $deleteUrl = "https://graph.microsoft.com/v1.0/drives/$driveId/items/$($spFile.id)"
+    Invoke-RestMethod -Method Delete -Uri $deleteUrl -Headers $headers
+  }
+}</code></pre></div>
+    </div>
+  </div>
+
+  <h2>What contributors see</h2>
+  <p>
+   To submit a release-related file, a contributor creates a branch linked to the relevant Azure DevOps work item, opens a pull request, addresses any review feedback, and merges the changes. The pipeline then syncs the approved file to SharePoint automatically — no manual upload or separate publishing step.
+  </p>
+
+  <h2>Result</h2>
+  <p>
+    Documentation changes now go through review and are traceable to a work item before reaching SharePoint, replacing the previous process of uploading files directly with no version control or review.
+  </p>
+
+  <figure>
+    <img src="../assets/images/sharepoint-sync-log.png" alt="Azure DevOps pipeline run log showing 181 files synced successfully, 0 failures, and 1 orphaned file removed">
+    <figcaption>Successful pipeline run — 181 files synced, 0 failures, 1 orphaned file cleaned up</figcaption>
+  </figure>
+
+</div>
+</body>
+</html>

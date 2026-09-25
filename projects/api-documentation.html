@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Documentation — OIDC/JWT Authentication via Keycloak — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem 1.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+
+  figure { margin: 1.5rem 0 2rem 0; }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  figcaption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+  }
+
+  .note {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+  }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.4rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>API Documentation — OIDC/JWT Authentication via Keycloak</h1>
+  <div class="tags">
+    <span class="tag">#api</span>
+    <span class="tag">#oidc</span>
+    <span class="tag">#rest</span>
+    <span class="tag">#auth</span>
+    <span class="tag">#sso</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    As part of an Administrator Guide for a telecom/network performance management platform, I wrote the API documentation chapter covering authentication and the use of the platform's REST APIs to manage system data.
+  </p>
+  <p>
+    The audience was support engineers and administrators working directly with the API.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I wrote the chapter independently, covering both the authentication workflow and the endpoint reference. To document the authentication flow, I first researched how Keycloak works as an OIDC provider — how it handles identity and issues JWT tokens.
+  </p>
+
+  <h2>Authentication workflow</h2>
+  <p>
+    The chapter explains what OIDC and JWTs are, how Keycloak is used as the OIDC provider, and the two-step workflow administrators follow to authenticate: creating an OIDC client and obtaining an authentication token.
+  </p>
+  <figure>
+    <img src="../assets/images/api-auth-workflow.png" alt="Documentation excerpt explaining OIDC/JWT authentication and the 2-step workflow for enabling API access">
+    <figcaption>Excerpt — "Enabling Access to Acme APIs" (product and module names genericized)</figcaption>
+  </figure>
+
+  <h2>Documenting an endpoint</h2>
+  <p>
+    For each API resource, I documented the available endpoints, including their purpose, HTTP method, request body, and response codes. Where relevant, I also included prerequisites and links to the OpenAPI specification.
+  </p>
+  <figure>
+    <img src="../assets/images/api-filters-merged.png" alt="Documentation excerpt for the POST /filters endpoint, showing the JSON request body and response codes">
+    <figcaption>Excerpt — "Filters API endpoints" section, showing the POST /filters reference (endpoint names and sample IDs genericized)</figcaption>
+  </figure>
+
+  <div class="note">
+   The endpoint reference follows an OpenAPI/Swagger-style structure. The mockup below shows the same structure using placeholder company and endpoint names, since the real specification reflects internal product details that can't be shared publicly.
+
+  <figure>
+    <img src="../assets/images/api-mockup-screenshot.png" alt="Generic mockup of a Swagger-style API reference page, showing grouped endpoints with color-coded HTTP methods">
+    <figcaption>Mockup — generic API reference view (placeholder company and endpoint names, structure matches the real documentation)</figcaption>
+  </figure>
+
+  <h2>Result</h2>
+  <p>
+   Administrators and support engineers had a single chapter covering both the authentication workflow and the API reference, including endpoints, request and response formats, and error codes. This gave them the information they needed to work with the API without relying on separate engineering documentation.
+  </p>
+
+  <h2>Beyond this chapter</h2>
+  <p>
+    I also researched Keycloak for a separate Admin Guide chapter on user and organization management, covering SSO configuration, group and role management, and Realms.
+
+</div>
+</body>
+</html>

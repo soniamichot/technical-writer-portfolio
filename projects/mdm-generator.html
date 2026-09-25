@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDM Generator — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem 1.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+
+  .code-block {
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 0 2rem 0;
+  }
+  .code-block pre { margin: 0; }
+  .code-block code {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 0.8rem !important;
+    line-height: 1.6 !important;
+    padding: 1.1rem 1.3rem !important;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .code-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  .live-demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 4px;
+    margin: 1rem 0 2rem 0;
+  }
+  .live-demo-link:hover { opacity: 0.9; }
+
+  figure { margin: 0 0 1.5rem 0; }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  figcaption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>MDM Table Catalog Generator</h1>
+  <div class="tags">
+    <span class="tag">#python</span>
+    <span class="tag">#data-quality</span>
+    <span class="tag">#automation</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Reference data for the platform was documented across two separate Excel files that had become incomplete and overlapping over time. I came across this gap while looking into an unassigned ticket — documentation normally maintained by developers rather than technical writers. Checking whether a table existed, what fields it required, or which were optional meant cross-referencing both files by hand.
+  </p>
+  <p>
+    I consolidated both into a single 149-table catalog, then built a Python script that generates a standalone, searchable HTML reference from that Excel file. The result is a reference people can use day to day, without needing to run the script.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I developed the data-cleaning logic around the inconsistencies in the original files — mapping mismatched sheet names, handling incomplete values, and excluding internal-only content. I used AI assistance to implement and refine the Python code.
+  </p>
+
+  <div class="callout">
+    The real catalog contains the platform's actual reference tables and can't be shared here. Instead, the example below uses a fictional 12-table e-commerce catalog processed by the same script, demonstrating the same logic and output format.
+  </div>
+
+  <h2>Mapping mismatched sheet names</h2>
+  <p>
+    Sheet tabs in the source Excel don't always match the table names used in the catalog — due to Excel's tab-length limit or inconsistent naming over time. A dedicated _Lists sheet provides the mapping, so the script doesn't have to guess.
+  </p>
+  <p>
+    The script reads the mapping first and uses it whenever a sheet name has a corresponding catalog name. For sheets without a mapping, it falls back to the sheet name as-is.
+  </p>
+
+  <div class="code-label">excel_to_html.py</div>
+  <div class="code-block"><pre><code class="language-python">sheet_to_table = {}
+try:
+    lists_df = pd.read_excel(excel_path, sheet_name='_Lists')
+    for _, row in lists_df.iterrows():
+        sheet_name = row.get('Sheet Name (exact tab)', '')
+        table_name = row.get('Friendly Name (Catalog)', '')
+        if pd.notna(sheet_name) and pd.notna(table_name) and str(sheet_name).strip() and str(table_name).strip():
+            sheet_to_table[str(sheet_name)] = str(table_name)
+            print(f"  Mapped: '{sheet_name}' -> '{table_name}'")
+except Exception as e:
+    print(f"Warning: Could not read _Lists sheet: {e}")
+
+# For sheets not in _Lists, use the sheet name as-is
+for sheet_name in excel_file.sheet_names:
+    if sheet_name not in ['Catalog', '_Lists', 'Maintenance Guide'] and sheet_name not in sheet_to_table:
+        sheet_to_table[sheet_name] = sheet_name</code></pre></div>
+
+  <h2>Excluding internal-only content</h2>
+  <p>
+    Some reference tables are for internal use only and shouldn't appear in the published catalog. Rather than maintaining a separate exclusion list, the script checks the Audience column in the Catalog sheet and skips any table marked static-internal.
+  </p>
+
+  <div class="code-label">excel_to_html.py</div>
+  <div class="code-block"><pre><code class="language-python">for sheet_name in excel_file.sheet_names:
+    if sheet_name in skip_sheets:
+        continue
+
+    actual_table_name = sheet_to_table.get(sheet_name, sheet_name)
+    if actual_table_name in table_metadata:
+        audience = table_metadata[actual_table_name].get('audience', '')
+        if 'static-internal' in str(audience).lower():
+            print(f"Skipping internal sheet: {sheet_name}")
+            continue</code></pre></div>
+
+  <p>In the mock run, 13 tables exist in the source Excel — one ("Internal Pricing Config") is marked <code>static-internal</code> and is excluded automatically, leaving 12 in the published catalog:</p>
+
+  <figure>
+    <img src="../assets/images/mdm-terminal-skip.png" alt="Terminal output showing the script mapping sheet names, finding 13 tables, and skipping the internal-only sheet">
+    <figcaption>Script output — sheet mapping, table count, and the internal sheet being skipped</figcaption>
+  </figure>
+
+  <h2>Result</h2>
+  <p>
+    The generated catalog is a standalone HTML file, searchable by table name, MDM table name, or description. Each table has its own card with a link to the full field definitions. No server or database is required — anyone can open it directly in a browser.
+  </p>
+
+  <a class="live-demo-link" href="../assets/demos/mdm-catalog-demo.html" target="_blank">View live demo →</a>
+
+  <figure>
+    <img src="../assets/images/mdm-landing.png" alt="Generated MDM catalog landing page, showing a searchable grid of table cards with Pod Impact indicators">
+    <figcaption>Generated catalog — searchable table grid (mock data)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="../assets/images/mdm-payment-method.png" alt="Detail view for the Payment Method table, showing MDM table name, read/write access, and a full field definitions table">
+    <figcaption>Table detail view — field definitions with types, examples, and mandatory flags</figcaption>
+  </figure>
+
+</div>
+</body>
+</html>

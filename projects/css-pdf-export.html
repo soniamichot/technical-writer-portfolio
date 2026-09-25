@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS / PDF Export System — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --code-bg: #22261F;
+    --code-text: #E8E6DE;
+    --code-comment: #8B9A7D;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem 1.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.8rem 0;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+
+
+  .code-block {
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 0 2.5rem 0;
+  }
+
+  .code-block pre {
+  margin: 0;
+  }
+
+  .code-block code {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 0.82rem !important;
+  line-height: 1.6 !important;
+  padding: 1.1rem 1.3rem !important;
+  display: block;
+  overflow-x: auto;
+  }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0 2.5rem 0;
+  }
+  .compare-col .col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .compare-col.before .col-label { background: var(--sidebar-bg); color: var(--ink-soft); }
+  .compare-col.after .col-label { background: var(--accent-soft); color: var(--accent); }
+.compare-col {
+  display: flex;
+  flex-direction: column;
+}
+.compare-col figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.compare-col img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.compare-col figcaption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+  @media (max-width: 780px) {
+    .compare { grid-template-columns: 1fr; }
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>CSS / PDF Export System</h1>
+  <div class="tags">
+    <span class="tag">#css</span>
+    <span class="tag">#pdf-export</span>
+    <span class="tag">#automation</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Confluence Cloud doesn't provide a reliable way to export guides as fully formatted, paginated PDFs. Its default export has limited control over page breaks, headers and footers, automatic numbering, and wide tables.
+  </p>
+  <p>
+    I built a CSS3 Paged Media stylesheet from scratch, 591 lines long, that Confluence applies during PDF export. It gives every guide a paginated table of contents, consistent heading hierarchy, page numbering, and reliable table rendering, without changing how anyone writes content in Confluence.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I designed and wrote the stylesheet independently, with AI assistance in implementing and refining the CSS. I diagnosed the rendering issues myself through testing, research, and trial and error, including problems that only appeared in specific PDF renderers.
+  </p>
+
+  <h2>Diagnosing a real rendering bug</h2>
+  <p>
+    Wide tables, especially those with 6+ columns, get clipped on the right edge during PDF export, even with <code>width: 100%</code> applied. I found that Confluence adds an inline pixel width to the <code>&lt;table&gt;</code> element during export. Some PDF renderers give this value priority over the stylesheet, so the fix requires more than a standard CSS override.
+  <p>
+
+<div class="code-block"><pre><code class="language-css">/* Wide-table fix: Confluence injects an inline pixel width during PDF export,
+   which some renderers prioritize over CSS. Constrain the table explicitly
+   and let cells compress (min-width: 0) to fit within the page. */
+table {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  table-layout: fixed !important;
+  overflow-x: visible !important;
+  border-collapse: collapse;
+  font-size: 8pt;
+  page-break-inside: auto;
+}
+
+table td, table th {
+  padding: 5pt 6pt;
+  border: 1px solid #CCCCCC;
+  vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 0;
+  font-size: 8pt !important;
+}</code></pre></div>
+
+  <p>The same 4-column role/permissions table before and after the fix. In the default export, words break awkwardly because the columns are too narrow:</p>
+
+  <div class="compare">
+    <div class="compare-col before">
+      <span class="col-label">BEFORE</span>
+      <figure>
+        <img src="../assets/images/css-table-before.png" alt="Table export without the custom stylesheet, showing narrow columns with words broken awkwardly mid-line">
+        <figcaption>Default export — narrow columns and awkward word breaks</figcaption>
+      </figure>
+    </div>
+    <div class="compare-col after">
+      <span class="col-label">AFTER</span>
+      <figure>
+        <img src="../assets/images/css-table-after.png" alt="Same table exported with the custom stylesheet, using the full page width with no broken words">
+        <figcaption>Custom stylesheet — full-width table with clean word wrapping</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h2>Paginated table of contents</h2>
+  <p>
+    The stylesheet also generates numbered chapters and a paginated table of contents using CSS counters. Chapter numbers update automatically when content is added or reordered, instead of being typed in manually.
+  </p>
+
+ <div class="code-block"><pre><code class="language-css">/* ==================== HEADING NUMBERING ==================== */
+body {
+  counter-reset: h2;
+}
+
+h2:before {
+  counter-increment: h2;
+  content: counter(h2) ". ";
+}
+
+/* ==================== VERSION NUMBER ====================
+   Only line to edit per release: update the version string below */
+div.toclvl0:before {
+  content: "Acme 26.1 ";
+}</code></pre></div>
+
+  <p>The same numbering system applied to the table of contents:</p>
+
+  <div class="compare">
+    <div class="compare-col before">
+      <span class="col-label">BEFORE</span>
+      <figure>
+        <img src="../assets/images/css-toc-before.png" alt="Table of contents without the custom stylesheet, showing flat, unnumbered chapter titles">
+        <figcaption>Default export — flat, unnumbered list</figcaption>
+      </figure>
+    </div>
+    <div class="compare-col after">
+      <span class="col-label">AFTER</span>
+      <figure>
+        <img src="../assets/images/css-toc-after.png" alt="Table of contents with the custom stylesheet applied, showing automatically numbered chapters in bold">
+        <figcaption>Custom stylesheet — titled and automatically numbered TOC</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h2>Result</h2>
+  <p>
+    Every guide exported from Confluence now follows the same branded, paginated PDF structure, without requiring manual formatting in the source content. Version updates are also simpler: the release number can be changed in a single line of CSS instead of being updated manually throughout the document.
+  </p>
+
+</div>
+</body>
+</html>

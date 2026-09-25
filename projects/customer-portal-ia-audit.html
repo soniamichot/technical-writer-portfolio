@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Portal IA &amp; Quality Audit — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem 1.5rem; }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+  h3 { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--ink-soft); margin: 1.75rem 0 0.7rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 0 1.75rem 0;
+    font-size: 0.88rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink);
+    background: var(--sidebar-bg);
+  }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>Customer Portal: Information Architecture &amp; Quality Audit</h1>
+  <div class="tags">
+    <span class="tag">#content-strategy</span>
+    <span class="tag">#information-architecture</span>
+    <span class="tag">#content-audit</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    The customer-facing documentation portal had accumulated content across several generations of products. Customers searching for a legacy product name often couldn't find its current equivalent, while active and retired products were mixed within the same categories.
+  <p>
+  <p>
+    The result was a portal that was difficult to navigate and made it harder for customers to find the right documentation.
+  <p>
+
+  <h2>Information architecture assessment</h2>
+  <p>
+    I reviewed the portal's information architecture and documented the main issues with search, navigation, and the way current and legacy products were organised.
+  </p>
+    <p>
+    I then evaluated three options for restructuring the portal:
+  </p>
+  <table>
+    <tr><th>Approach</th><th>Structure</th></tr>
+    <tr><td>Functional grouping</td><td>Organise content by business function, with current and legacy products under each function</td></tr>
+    <tr><td>Version-first</td><td>Organise by product line, with versions listed under each product.</td></tr>
+    <tr><td>Hybrid <em>(recommended)</em></td><td>Combine functional grouping with version and legacy status at the product level.</td></tr>
+  </table>
+  <p>
+    I recommended the hybrid structure because it provided a way to organise the portal by function while preserving product, version, and legacy relationships.
+  </p>
+
+  <h2>Post-implementation quality audit</h2>
+  <p>
+    I conducted a quality audit of the live portal to identify content and navigation issues.
+  </p>
+  <p>The audit uncovered several issues, including:
+</p>
+  <ul>
+    <li><strong>Brand naming inconsistency</strong> — the product name appeared correctly in most places but incorrectly capitalized in others</li>
+    <li><strong>Unreviewed content live on the customer-facing site</strong> — an internal, unproofread article was being served to customers where a validated version existed elsewhere</li>
+    <li><strong>Duplicate knowledge base versions </strong> — two full versions of the same knowledge base existed simultaneously, with different update dates and nothing indicating which was current or authoritative.</li>
+    <li><strong>Cross-category navigation</strong> — a link took users from product documentation to general support content without clearly indicating the change in context.</li>
+    <li><strong>Stale content</strong> — a “News” panel hadn't been updated since an old release, despite newer ones having shipped.</li>
+  </ul>
+  <p>
+    For each issue, I documented the problem, its likely cause, proposed fix, and who should address it.
+  </p>
+
+  <h2>Result</h2>
+  <p>
+    The information architecture recommendations and quality-audit findings were documented and shared with the relevant teams, providing a clear set of priorities and actionable recommendations for improving the portal.
+  </p>
+
+</div>
+</body>
+</html>

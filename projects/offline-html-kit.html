@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline HTML Documentation Kit — Sonia Michot Roberto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/powershell.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --accent: #A34F36;
+    --accent-soft: #ECDACD;
+    --max-text: 680px;
+    --demo-blue: #3f6fb0;
+    --demo-blue-soft: #e7eef8;
+    --demo-toolbar: #eef3fa;
+    --demo-sidebar-dark: #332e28;
+    --demo-sidebar-title-bg: #26221d;
+    --demo-sidebar-footer-bg: #2b2620;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem 1.5rem; }
+  .back-link {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; color: var(--ink); line-height: 1.25; }
+  h1 { font-size: 2rem; margin: 0 0 0.75rem 0; max-width: 780px; }
+  h2 { font-size: 1.3rem; margin: 2.75rem 0 0.9rem 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.25rem; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  p { color: var(--ink-soft); max-width: var(--max-text); margin: 0 0 1.1rem 0; }
+  strong { color: var(--ink); }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+
+  .stat-row { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.25rem 0 2rem 0; }
+  .stat { background: var(--sidebar-bg); border-radius: 6px; padding: 0.9rem 1.2rem; min-width: 140px; }
+  .stat .num { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--accent); display: block; }
+  .stat .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); }
+
+  .code-block { border-radius: 6px; overflow: hidden; margin: 0 0 2rem 0; }
+  .code-block pre { margin: 0; }
+  .code-block code {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+    padding: 1.1rem 1.3rem !important;
+    display: block;
+    overflow-x: auto;
+  }
+  .code-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); margin: 0 0 0.5rem 0; }
+
+  .callout {
+    background: var(--sidebar-bg);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0;
+    max-width: var(--max-text);
+  }
+
+  /* ---------- Demo frame ---------- */
+    .demo-frame {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 0 1rem 0;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .demo-titlebar {
+    background: var(--sidebar-bg);
+    padding: 0.55rem 0.9rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .demo-titlebar-dots { display: flex; gap: 5px; }
+  .demo-titlebar-dots span {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--line);
+  }
+  .demo-body { min-height: 380px; display: flex; }
+
+  /* ---- Landing page ---- */
+  .demo-landing { padding: 1.9rem 2rem; width: 100%; }
+  .demo-landing h3 {
+    font-family: 'Fraunces', serif; font-size: 1.25rem; margin: 0 0 0.3rem 0; color: var(--ink);
+  }
+  .demo-landing-sub {
+    font-size: 0.78rem; color: var(--ink-soft); margin: 0 0 1.5rem 0;
+  }
+  .demo-category { margin-bottom: 1.4rem; }
+  .demo-category-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--demo-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .demo-guide-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .demo-guide-link {
+    display: inline-block;
+    background: var(--demo-blue-soft);
+    color: var(--demo-blue);
+    font-size: 0.85rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: 'IBM Plex Sans', sans-serif;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .demo-guide-link:hover { background: #fff; border-color: var(--demo-blue); }
+
+  .demo-sidebar {
+    width: 200px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--line);
+    padding: 1.25rem 1rem;
+    flex-shrink: 0;
+  }
+  .demo-home-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.5rem 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink);
+    cursor: pointer;
+    margin-bottom: 1.25rem;
+  }
+
+   /* ---- Guide view ---- */
+  .demo-sidebar {
+    width: 210px;
+    background: var(--demo-sidebar-dark);
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .demo-sidebar-title {
+    font-size: 0.85rem;
+    color: #fff;
+    font-weight: 500;
+    padding: 0.85rem 1.1rem;
+    background: var(--demo-sidebar-title-bg);
+    border-bottom: 2px solid var(--accent);
+  }
+  .demo-toc { flex: 1; padding: 0.7rem 0; }
+  .demo-toc-item {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.68);
+    padding: 0.4rem 1.1rem;
+    cursor: default;
+  }
+  .demo-toc-item.active {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+    border-left: 2px solid var(--accent);
+  }
+  .demo-toc-sub {
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.5);
+    padding: 0.32rem 1.1rem 0.32rem 1.9rem;
+  }
+  .demo-sidebar-footer {
+    padding: 0.9rem 1.1rem 1rem 1.1rem;
+    background: var(--demo-sidebar-footer-bg);
+  }
+  .demo-home-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+    padding: 0.45rem 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: #fff;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .demo-home-btn:hover { border-color: var(--accent); background: rgba(255,255,255,0.06); }
+
+  .demo-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .demo-toolbar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    background: var(--demo-toolbar);
+    border-bottom: 1px solid var(--line);
+  }
+  .demo-toolbar-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    color: var(--demo-blue);
+    font-size: 0.8rem;
+    cursor: default;
+  }
+
+  .demo-content { padding: 1.75rem 2rem; flex: 1; }
+  .demo-content h4 { font-family: 'Fraunces', serif; font-size: 1.15rem; margin: 0 0 0.75rem 0; color: var(--ink); }
+  .demo-content p { font-size: 0.88rem; color: var(--ink-soft); max-width: 480px; line-height: 1.5; }
+
+  .hidden { display: none !important; }
+
+  ul { color: var(--ink-soft); max-width: var(--max-text); padding-left: 1.2rem; }
+  li { margin-bottom: 0.4rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+
+  <h1>Offline HTML Documentation Kit</h1>
+  <div class="tags">
+    <span class="tag">#distribution</span>
+    <span class="tag">#offline</span>
+    <span class="tag">#config-driven</span>
+  </div>
+
+  <h2>Context</h2>
+  <p>
+    Some deployments of the product run in air-gapped environments, where users cannot access the online customer portal and need documentation that can be installed and used entirely offline.
+  </p>
+  <p>
+    PDF was available as an offline format, but HTML offered a more navigable documentation experience, with the familiar structure and interaction of online documentation while remaining fully offline.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I identified the need for a more practical offline documentation experience and designed and built a self-contained documentation kit to address it. I used AI-assisted coding throughout the project to explore implementation approaches, develop the tooling, and troubleshoot issues along the way.
+  </p>
+
+  <h2>Explore the navigation</h2>
+  <p>
+    The offline kit brings multiple guides together under a single Home page, organised by product area.
+    Click through the example below, using the <strong>Home</strong> button to move between guides.
+  </p>
+
+  <div class="demo-frame">
+  <div class="demo-titlebar">
+    <div class="demo-titlebar-dots"><span></span><span></span><span></span></div>
+    localhost:5501 — offline, no internet required
+  </div>
+  <div class="demo-body">
+
+    <div id="demo-landing" class="demo-landing">
+      <h3>Acme Documentation</h3>
+      <p class="demo-landing-sub">Offline documentation viewer</p>
+      <div id="demo-categories"></div>
+    </div>
+
+    <div id="demo-guide" class="hidden" style="display:flex; width:100%;">
+      <div class="demo-sidebar">
+        <div class="demo-sidebar-title" id="demo-sidebar-title">Guide title</div>
+        <div class="demo-toc">
+          <div class="demo-toc-item active">Overview</div>
+          <div class="demo-toc-item">Prerequisites</div>
+          <div class="demo-toc-sub">System requirements</div>
+          <div class="demo-toc-sub">Network requirements</div>
+          <div class="demo-toc-item">Steps</div>
+          <div class="demo-toc-sub">Before you begin</div>
+          <div class="demo-toc-sub">Configuration</div>
+          <div class="demo-toc-sub">Verification</div>
+        </div>
+        <div class="demo-sidebar-footer">
+          <button class="demo-home-btn" onclick="showLanding()">← Home</button>
+        </div>
+      </div>
+      <div class="demo-main">
+        <div class="demo-toolbar">
+          <div class="demo-toolbar-btn">☰</div>
+          <div class="demo-toolbar-btn">‹</div>
+          <div class="demo-toolbar-btn">›</div>
+          <div class="demo-toolbar-btn">🔍</div>
+        </div>
+        <div class="demo-content">
+          <h4 id="demo-guide-title">Guide title</h4>
+          <p>This is a simplified example of a converted guide. The real kit uses the full HTML content from the documentation export.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <h2>Result</h2>
+  <p>
+    The kit provided a reliable, self-contained documentation experience across all three product lines, giving users in air-gapped environments access to the product documentation without an internet connection.
+  </p>
+
+</div>
+
+<script>
+  const categories = [
+    { name: "Installation", guides: [
+      { title: "Site Preparation Guide" },
+      { title: "Installation & Upgrade Guide" }
+    ]},
+    { name: "Admin", guides: [
+      { title: "Administrator Guide" },
+      { title: "Configuration Guide" }
+    ]},
+    { name: "Release Notes", guides: [
+      { title: "Release Notes" }
+    ]}
+  ];
+
+  const container = document.getElementById('demo-categories');
+  categories.forEach(cat => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'demo-category';
+    const label = document.createElement('div');
+    label.className = 'demo-category-name';
+    label.textContent = cat.name;
+    catDiv.appendChild(label);
+    const list = document.createElement('div');
+    list.className = 'demo-guide-list';
+    cat.guides.forEach(g => {
+      const btn = document.createElement('button');
+      btn.className = 'demo-guide-link';
+      btn.textContent = g.title;
+      btn.onclick = () => showGuide(g.title);
+      list.appendChild(btn);
+    });
+    catDiv.appendChild(list);
+    container.appendChild(catDiv);
+  });
+
+  function showGuide(title) {
+    document.getElementById('demo-landing').classList.add('hidden');
+    document.getElementById('demo-guide').classList.remove('hidden');
+    document.getElementById('demo-guide').style.display = 'flex';
+    document.getElementById('demo-guide-title').textContent = title;
+    document.getElementById('demo-sidebar-title').textContent = title;
+  }
+  function showLanding() {
+    document.getElementById('demo-guide').classList.add('hidden');
+    document.getElementById('demo-landing').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

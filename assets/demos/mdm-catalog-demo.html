@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>MDM Tables Documentation</title>
+<style>
+:root { --midBlue:#0066A1; --darkGray:#54585A; --orange:#FF6A13; --green:#6DB33F; --blue:#00558C; --steel:#73777B; --purple:#7B3F9B; --lightBlue:#00AEEF; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); color: var(--darkGray); }
+.header { background: linear-gradient(135deg, var(--midBlue) 0%, var(--blue) 100%); padding: 2rem; color: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.header-inner { max-width: 1200px; margin: 0 auto; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.brand-left { display: flex; align-items: center; gap: 1rem; }
+.logo-box { width: 120px; height: 60px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--midBlue); font-size: .875rem; }
+.icon-box { width: 60px; height: 60px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.title { margin: 0; font-size: 2rem; font-weight: 700; }
+.subtitle { margin: .25rem 0 0 0; opacity: .9; font-size: 1rem; }
+.search { position: relative; margin-top: 1.5rem; }
+.search input { width: 100%; padding: .875rem 1rem .875rem 3rem; border: none; border-radius: 8px; font-size: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); outline: none; }
+.container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.card { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.catalog-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.catalog-item { padding: 1.25rem; border: 2px solid #e9ecef; border-radius: 8px; cursor: pointer; transition: all .2s; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.catalog-item.active { border-color: var(--midBlue); background: #f0f7ff; box-shadow: 0 4px 12px rgba(0, 174, 239, .25); }
+.catalog-top { display: flex; align-items: start; justify-content: space-between; margin-bottom: .75rem; }
+.catalog-title { margin: 0; color: var(--midBlue); font-size: 1.125rem; font-weight: 600; overflow-wrap:anywhere; word-break:break-word; }
+.mdm-pill { font-size: .875rem; color: var(--steel); font-family: monospace; background: #f8f9fa; padding: .375rem .625rem; border-radius: 4px; margin-bottom: .75rem; display:inline-block; white-space:normal; overflow-wrap:anywhere; word-break:break-word; line-height:1.25; }
+.badges { display: flex; gap: .5rem; margin-top: .75rem; flex-wrap: wrap; }
+.badge { padding: .25rem .625rem; border-radius: 12px; font-size: .75rem; font-weight: 500; color: #fff; display: inline-block; }
+.impact-yes { background: var(--orange); }
+.impact-no { background: var(--green); }
+.audience-config { background: var(--green); }
+.audience-rd { background: var(--orange); }
+.audience-static { background: var(--steel); }
+.details { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 2px solid var(--midBlue); }
+.details h2 { margin: 0 0 1.5rem 0; color: var(--midBlue); font-size: 1.75rem; padding-bottom: 1rem; border-bottom: 3px solid var(--lightBlue); }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.info-card { padding: 1rem; border-radius: 8px; border: 2px solid rgba(0, 102, 161, .125); background: rgba(0, 102, 161, .05); }
+.info-label { font-size: .75rem; font-weight: 600; color: var(--midBlue); text-transform: uppercase; margin-bottom: .25rem; }
+.info-value { font-size: 1rem; font-weight: 600; color: #2c3e50; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+.note { padding: 1rem; background: #fff3cd; border: 1px solid var(--orange); border-radius: 8px; margin-bottom: 1.5rem; }
+.fields h3 { color: var(--midBlue); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: .5rem; }
+table{ width: 100%; border-collapse: collapse; font-size: .875rem; } thead tr{ background: var(--midBlue); color: #fff; } th{ padding: .875rem; text-align: left; font-weight: 600; } td{ padding: .875rem; } tbody tr{ border-bottom: 1px solid #e9ecef; } tbody tr:nth-child(odd){ background: #f8f9fa; } td.name{ font-weight: 600; color: var(--midBlue); font-family: monospace; } td.datatype{ color: var(--purple); font-weight: 500; }
+.footer{ background: var(--darkGray); color: #fff; padding: 1.5rem; text-align: center; margin-top: 3rem; font-size: .875rem; } .hidden{ display: none; }
+</style>
+</head>
+<body>
+
+<header class="header" style="position: relative;">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand-left">
+        <div class="icon-box">📄</div>
+        <div>
+          <h1 class="title">MDM Tables Documentation</h1>
+          <p class="subtitle">Master Data Management – System Enrichment</p>
+        </div>
+      </div>
+    </div>
+    <div class="search">
+      <input id="searchInput" placeholder="Search tables, MDM names, or descriptions..." type="text"/>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+   <h2 style="margin:0 0 1rem 0; color: var(--midBlue); font-size: 1.5rem; display: flex; align-items: center;">📚 Tables Catalog (<span id="count"></span>&nbsp;tables)</h2>
+    <div id="catalogGrid" class="catalog-grid"></div>
+  </div>
+  
+  <div id="detailsSection" class="details hidden"></div>
+</div>
+
+<footer class="footer">
+  <!-- Left-aligned logo + copyright -->
+  <div style="float:left; display:flex; flex-direction:column; align-items:flex-start; gap:.25rem; margin-right:1rem;">
+    <span style="font-size:.85rem; opacity:.7;">Copyright © <span id="copyright-year"></span> All rights reserved</span>
+  </div>
+  
+  <!-- Centered text -->
+  <div style="text-align:center;">
+    <p style="margin:0">Master Data Management Documentation • System Enrichment</p>
+  </div>
+  
+  <!-- Clear float -->
+  <div style="clear:both;"></div>
+</footer>
+
+<script>
+const catalogData = [
+{
+"table": "Payment Method",
+"mdmTableName": "dim_payment_method",
+"usage": "See tab: Payment Method",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "Yes (cache rebuild)",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Payment Method",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "payment_method_code",
+"description": "Short code identifying the payment method",
+"mandatory": "yes",
+"example": "CARD_VISA",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Name shown to customers at checkout",
+"mandatory": "yes",
+"example": "Visa Credit Card",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "provider",
+"description": "Payment processor handling this method",
+"mandatory": "yes",
+"example": "Stripe",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "requires_verification",
+"description": "Whether additional identity verification is required",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "is_active",
+"description": "Whether this method is currently offered to customers",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Customer Segment",
+"mdmTableName": "dim_customer_segment",
+"usage": "See tab: Customer Segment",
+"functionalities": "Reports",
+"podRestartImpact": "No",
+"readWrite": "Read/Write",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Customer Segment",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "segment_code",
+"description": "Short code identifying the customer segment",
+"mandatory": "yes",
+"example": "LOYAL_HIGH",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "segment_name",
+"description": "Name shown in internal reporting dashboards",
+"mandatory": "yes",
+"example": "High-Value Loyalty",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "min_lifetime_spend",
+"description": "Minimum lifetime spend threshold to qualify for this segment",
+"mandatory": "yes",
+"example": "500",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "discount_eligible",
+"description": "Whether customers in this segment are eligible for segment-specific discounts",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "priority_support",
+"description": "Whether this segment gets priority customer support routing",
+"mandatory": "no",
+"example": "0",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Product Category",
+"mdmTableName": "dim_product_category",
+"usage": "See tab: Product Category",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Product Category",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "category_code",
+"description": "Short code identifying the product category",
+"mandatory": "yes",
+"example": "ELEC_AUDIO",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "category_name",
+"description": "Name shown to customers in site navigation",
+"mandatory": "yes",
+"example": "Audio & Headphones",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "parent_category",
+"description": "Parent category code, if this is a subcategory",
+"mandatory": "no",
+"example": "ELECTRONICS",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "is_active",
+"description": "Whether this category is currently visible on the site",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Order Status",
+"mdmTableName": "dim_order_status",
+"usage": "See tab: Order Status",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Order Status",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "status_code",
+"description": "Short code identifying the order status",
+"mandatory": "yes",
+"example": "AWAITING_SHIP",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Status label shown to customers in order tracking",
+"mandatory": "yes",
+"example": "Preparing for shipment",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "is_terminal",
+"description": "Whether this status marks the end of the order lifecycle",
+"mandatory": "yes",
+"example": "0",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "triggers_notification",
+"description": "Whether reaching this status sends a customer notification",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Shipping Zone",
+"mdmTableName": "dim_shipping_zone",
+"usage": "See tab: Shipping Zone",
+"functionalities": "Reports",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Shipping Zone",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "zone_code",
+"description": "Short code identifying the shipping zone",
+"mandatory": "yes",
+"example": "ZONE_EU_WEST",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "zone_name",
+"description": "Name shown during checkout",
+"mandatory": "yes",
+"example": "Western Europe",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "base_rate",
+"description": "Base shipping cost for this zone, before weight/size adjustments",
+"mandatory": "yes",
+"example": "4.99",
+"dataType": "decimal",
+"note": ""
+},
+{
+"name": "estimated_days_min",
+"description": "Minimum estimated delivery time, in days",
+"mandatory": "yes",
+"example": "2",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "estimated_days_max",
+"description": "Maximum estimated delivery time, in days",
+"mandatory": "yes",
+"example": "5",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Return Reason",
+"mdmTableName": "dim_return_reason",
+"usage": "See tab: Return Reason",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Return Reason",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "reason_code",
+"description": "Short code identifying the return reason",
+"mandatory": "yes",
+"example": "WRONG_SIZE",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Reason label shown to customers in the returns flow",
+"mandatory": "yes",
+"example": "Item didn't fit",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "requires_photo",
+"description": "Whether customers must upload a photo to select this reason",
+"mandatory": "no",
+"example": "0",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "restock_eligible",
+"description": "Whether items returned for this reason can be restocked",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Warehouse Location",
+"mdmTableName": "dim_warehouse_location",
+"usage": "See tab: Warehouse Location",
+"functionalities": "Reports",
+"podRestartImpact": "Yes (reindex)",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Warehouse Location",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "location_code",
+"description": "Short code identifying the warehouse location",
+"mandatory": "yes",
+"example": "WH_NORTH_02",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "location_name",
+"description": "Name shown in internal fulfillment dashboards",
+"mandatory": "yes",
+"example": "North Distribution Center 2",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "region",
+"description": "Geographic region this warehouse serves",
+"mandatory": "yes",
+"example": "North America",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "capacity_units",
+"description": "Total storage capacity, in inventory units",
+"mandatory": "yes",
+"example": "50000",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "is_active",
+"description": "Whether this location is currently receiving new inventory",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Discount Type",
+"mdmTableName": "dim_discount_type",
+"usage": "See tab: Discount Type",
+"functionalities": "Reports",
+"podRestartImpact": "No",
+"readWrite": "Read/Write",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Discount Type",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "discount_code",
+"description": "Short code identifying the discount type",
+"mandatory": "yes",
+"example": "PCT_OFF",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Name shown in the promotions management dashboard",
+"mandatory": "yes",
+"example": "Percentage Off",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "calculation_method",
+"description": "How the discount value is applied",
+"mandatory": "yes",
+"example": "percentage",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "max_uses_per_customer",
+"description": "Maximum number of times a single customer can use this discount type",
+"mandatory": "no",
+"example": "1",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "stackable",
+"description": "Whether this discount can be combined with other active discounts",
+"mandatory": "yes",
+"example": "0",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Currency",
+"mdmTableName": "dim_currency",
+"usage": "See tab: Currency",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "Documented in the Acme Finance Admin Guide",
+"sheet": "Currency",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "currency_code",
+"description": "ISO currency code",
+"mandatory": "yes",
+"example": "EUR",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_symbol",
+"description": "Symbol shown next to prices on the storefront",
+"mandatory": "yes",
+"example": "€",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "decimal_places",
+"description": "Number of decimal places used when displaying this currency",
+"mandatory": "yes",
+"example": "2",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "is_active",
+"description": "Whether this currency is currently accepted at checkout",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Device Channel",
+"mdmTableName": "dim_device_channel",
+"usage": "See tab: Device Channel",
+"functionalities": "Reports",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Device Channel",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "channel_code",
+"description": "Short code identifying the device channel",
+"mandatory": "yes",
+"example": "MOBILE_APP",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Name shown in internal analytics dashboards",
+"mandatory": "yes",
+"example": "Mobile App",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "platform",
+"description": "Underlying platform for this channel",
+"mandatory": "yes",
+"example": "iOS/Android",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "conversion_tracking_enabled",
+"description": "Whether conversion events are tracked for this channel",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "Fulfillment Method",
+"mdmTableName": "dim_fulfillment_method",
+"usage": "See tab: Fulfillment Method",
+"functionalities": "Reports, Order Trace",
+"podRestartImpact": "No",
+"readWrite": "Read",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "Fulfillment Method",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "method_code",
+"description": "Short code identifying the fulfillment method",
+"mandatory": "yes",
+"example": "SHIP_STANDARD",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "display_name",
+"description": "Name shown to customers at checkout",
+"mandatory": "yes",
+"example": "Standard Shipping",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "requires_warehouse",
+"description": "Whether this method requires warehouse fulfillment (vs. drop-ship)",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "avg_processing_hours",
+"description": "Average time to process an order with this method, in hours",
+"mandatory": "yes",
+"example": "24",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+},
+{
+"table": "User Loyalty Tier",
+"mdmTableName": "dim_user_loyalty_tier",
+"usage": "See tab: User Loyalty Tier",
+"functionalities": "Reports",
+"podRestartImpact": "No",
+"readWrite": "Read/Write",
+"requiresUpdateRefData": "No",
+"audience": "",
+"notes": "",
+"sheet": "User Loyalty Tier",
+"fields": [
+{
+"name": "id",
+"description": "System-generated unique ID",
+"mandatory": "",
+"example": "",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "tier_code",
+"description": "Short code identifying the loyalty tier",
+"mandatory": "yes",
+"example": "GOLD",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "tier_name",
+"description": "Name shown to customers in their account dashboard",
+"mandatory": "yes",
+"example": "Gold",
+"dataType": "varchar",
+"note": ""
+},
+{
+"name": "min_annual_spend",
+"description": "Minimum annual spend required to reach this tier",
+"mandatory": "yes",
+"example": "1000",
+"dataType": "integer",
+"note": ""
+},
+{
+"name": "free_shipping",
+"description": "Whether customers in this tier get free shipping by default",
+"mandatory": "yes",
+"example": "1",
+"dataType": "boolean",
+"note": ""
+},
+{
+"name": "points_multiplier",
+"description": "Points earned per dollar spent, relative to the base rate",
+"mandatory": "yes",
+"example": "1.5",
+"dataType": "decimal",
+"note": ""
+},
+{
+"name": "valid_from",
+"description": "Start of the record's validity. Auto-generated, set to record insert time",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+},
+{
+"name": "valid_to",
+"description": "End of the record's validity. Set to datetime 2100-01-01 00:00:00+00",
+"mandatory": "",
+"example": "",
+"dataType": "datetime",
+"note": ""
+}
+]
+}
+];
+
+const state = { selectedIndex: null };
+const countEl = document.getElementById('count');
+const gridEl = document.getElementById('catalogGrid');
+const searchEl = document.getElementById('searchInput');
+const detailsEl = document.getElementById('detailsSection');
+
+function getBadgeClass(value, type){ 
+  if(type==='impact'){ 
+    return (value && value.toLowerCase().includes('yes')) ? 'impact-yes' : 'impact-no'; 
+  } 
+  if(type==='audience'){ 
+    if(!value) return 'audience-static'; 
+    const v=value.toLowerCase(); 
+    if(v.includes('configurable')) return 'audience-config'; 
+    if(v.includes('reserved')||v.includes('r&d')) return 'audience-rd'; 
+    if(v.includes('static')) return 'audience-static'; 
+    return 'audience-static'; 
+  } 
+  return ''; 
+}
+
+function renderCatalog(list){ 
+  countEl.textContent = String(list.length).trim();
+  gridEl.innerHTML=''; 
+  list.forEach((item, idx)=>{ 
+    const card=document.createElement('div'); 
+    card.className='catalog-item'+(state.selectedIndex===idx?' active':''); 
+    card.onclick=()=>{ 
+      state.selectedIndex=(state.selectedIndex===idx)?null:idx; 
+      renderCatalog(list); 
+      renderDetails(); 
+    }; 
+    
+    const top=document.createElement('div'); 
+    top.className='catalog-top'; 
+    const title=document.createElement('h3'); 
+    title.className='catalog-title'; 
+    title.textContent=item.table; 
+    const chevron=document.createElement('div'); 
+    chevron.textContent= state.selectedIndex===idx ? '▾':'▸'; 
+    top.appendChild(title); 
+    top.appendChild(chevron); 
+    card.appendChild(top); 
+    
+    const mdm=document.createElement('div'); 
+    mdm.className='mdm-pill'; 
+    mdm.textContent=item.mdmTableName; 
+    card.appendChild(mdm); 
+    
+    const p=document.createElement('p'); 
+    p.style.margin=0; 
+    p.style.fontSize='.875rem'; 
+    p.style.lineHeight='1.5'; 
+    p.textContent=item.usage; 
+    card.appendChild(p); 
+    
+    const badges=document.createElement('div'); 
+    badges.className='badges'; 
+    const b1=document.createElement('span'); 
+    b1.className='badge '+getBadgeClass(item.podRestartImpact,'impact'); 
+    b1.textContent='Pod Impact: '+(item.podRestartImpact || 'No'); 
+    badges.appendChild(b1); 
+    
+    if(item.audience){ 
+      const b2=document.createElement('span'); 
+      b2.className='badge '+getBadgeClass(item.audience,'audience'); 
+      b2.textContent=item.audience; 
+      badges.appendChild(b2);
+    } 
+    card.appendChild(badges); 
+    gridEl.appendChild(card); 
+  }); 
+}
+
+function renderDetails(){ 
+  detailsEl.innerHTML=''; 
+  if(state.selectedIndex===null){ 
+    detailsEl.classList.add('hidden'); 
+    return;
+  } 
+  detailsEl.classList.remove('hidden'); 
+  
+  const item=(searchEl.value ? filteredData() : catalogData)[state.selectedIndex]; 
+  
+  const h2=document.createElement('h2'); 
+  h2.textContent=item.table; 
+  detailsEl.appendChild(h2); 
+  
+  const info=document.createElement('div'); 
+  info.className='info-grid'; 
+  const infoItems=[ 
+    ['MDM Table Name', item.mdmTableName], 
+    ['Read/Write', item.readWrite], 
+    ['Pod Restart Impact', item.podRestartImpact || 'No'], 
+    ['Requires Update Ref Data', item.requiresUpdateRefData] 
+  ]; 
+  
+  infoItems.forEach(([label, value])=>{ 
+    const card=document.createElement('div'); 
+    card.className='info-card'; 
+    const l=document.createElement('div'); 
+    l.className='info-label'; 
+    l.textContent=label; 
+    card.appendChild(l); 
+    const v=document.createElement('div'); 
+    v.className='info-value'; 
+    v.textContent=value || ''; 
+    card.appendChild(v); 
+    info.appendChild(card); 
+  }); 
+  detailsEl.appendChild(info); 
+  
+  if(item.functionalities){ 
+    const funcWrap=document.createElement('div'); 
+    funcWrap.style.marginBottom='1.5rem'; 
+    const h4=document.createElement('h4'); 
+    h4.style.color='var(--darkGray)'; 
+    h4.style.marginBottom='.5rem'; 
+    h4.style.fontSize='.875rem'; 
+    h4.style.fontWeight='600'; 
+    h4.style.textTransform='uppercase'; 
+    h4.textContent='Functionalities'; 
+    funcWrap.appendChild(h4); 
+    const p=document.createElement('p'); 
+    p.style.margin=0; 
+    p.style.lineHeight='1.6'; 
+    p.textContent=item.functionalities; 
+    funcWrap.appendChild(p); 
+    detailsEl.appendChild(funcWrap);
+  } 
+  
+  if(item.notes){ 
+    const note=document.createElement('div'); 
+    note.className='note'; 
+    note.innerHTML='<strong style="color: var(--orange)">Note:</strong> '+item.notes; 
+    detailsEl.appendChild(note);
+  } 
+  
+  const fieldsWrap=document.createElement('div'); 
+  fieldsWrap.className='fields'; 
+  const h3=document.createElement('h3'); 
+  h3.textContent='Field Definitions'; 
+  fieldsWrap.appendChild(h3); 
+  
+  const table=document.createElement('table'); 
+  const thead=document.createElement('thead'); 
+  const trh=document.createElement('tr'); 
+  ['Field Name','Description','Mandatory','Example','Data Type','Note'].forEach(h=>{ 
+    const th=document.createElement('th'); 
+    th.textContent=h; 
+    trh.appendChild(th);
+  }); 
+  thead.appendChild(trh); 
+  table.appendChild(thead); 
+  
+  const tbody=document.createElement('tbody'); 
+  const fields=item.fields || []; 
+  
+  if(!fields.length){ 
+    const tr=document.createElement('tr'); 
+    const td=document.createElement('td'); 
+    td.colSpan=6; 
+    td.textContent='No field metadata found for this table.'; 
+    tr.appendChild(td); 
+    tbody.appendChild(tr);
+  } else { 
+    fields.forEach(f=>{ 
+      const tr=document.createElement('tr'); 
+      
+      const tdName=document.createElement('td'); 
+      tdName.className='name'; 
+      tdName.textContent=f.name || ''; 
+      tr.appendChild(tdName); 
+      
+      const tdDesc=document.createElement('td'); 
+      tdDesc.textContent=f.description || ''; 
+      tr.appendChild(tdDesc); 
+      
+      const tdMan=document.createElement('td'); 
+      tdMan.style.textAlign='center'; 
+      tdMan.textContent=f.mandatory || ''; 
+      tr.appendChild(tdMan); 
+      
+      const tdEx=document.createElement('td'); 
+      tdEx.style.fontFamily='monospace'; 
+      tdEx.style.fontSize='.8125rem'; 
+      tdEx.style.color='var(--steel)'; 
+      tdEx.textContent=f.example || ''; 
+      tr.appendChild(tdEx); 
+      
+      const tdType=document.createElement('td'); 
+      tdType.className='datatype'; 
+      tdType.textContent=f.dataType || ''; 
+      tr.appendChild(tdType); 
+      
+      const tdNote=document.createElement('td'); 
+      tdNote.textContent=f.note || ''; 
+      tr.appendChild(tdNote); 
+      
+      tbody.appendChild(tr); 
+    }); 
+  } 
+  
+  table.appendChild(tbody); 
+  fieldsWrap.appendChild(table); 
+  detailsEl.appendChild(fieldsWrap); 
+}
+
+function filteredData(){ 
+  const q=searchEl.value.trim().toLowerCase(); 
+  if(!q) return catalogData; 
+  return catalogData.filter(item=> (
+    (item.table || '').toLowerCase().includes(q) || 
+    (item.mdmTableName || '').toLowerCase().includes(q) || 
+    (item.usage || '').toLowerCase().includes(q)
+  )); 
+}
+
+function refresh(){ 
+  const data=filteredData(); 
+  state.selectedIndex=null; 
+  renderCatalog(data); 
+  renderDetails(); 
+}
+
+searchEl.addEventListener('input', refresh);
+renderCatalog(catalogData); 
+renderDetails();
+</script>
+<script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

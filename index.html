@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonia Michot Roberto — Technical Writer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5F0;
+    --sidebar-bg: #EEEAE3;
+    --paper-raised: #FFFFFF;
+    --ink: #191A18;
+    --ink-soft: #62615C;
+    --line: #DCD6CB;
+    --cobalt: #A34F36;
+    --pale-blue: #ECDACD;
+    --key-work-blue: #1f8a61;
+    --max-text: 640px;
+    --sidebar-w: 260px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 0.5em 0;
+    color: var(--ink);
+  }
+
+  a {
+    color: var(--cobalt);
+    text-decoration-color: rgba(163,79,54,0.35);
+    text-underline-offset: 3px;
+  }
+  a:hover { text-decoration-color: var(--cobalt); }
+  a:focus-visible, button:focus-visible, .nav-link:focus-visible {
+    outline: 2px solid var(--cobalt);
+    outline-offset: 3px;
+  }
+
+  p { margin: 0 0 1em 0; color: var(--ink-soft); max-width: var(--max-text); }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- Layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 2.5rem 1.75rem;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top .name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.05;
+    margin: 0 0 0.35rem 0;
+    color: var(--ink);
+  }
+
+  .sidebar-top .role {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    margin: 0 0 2.25rem 0;
+  }
+
+  nav.toc { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .nav-link {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+    border-left: 2px solid transparent;
+    padding-left: 0.7rem;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-link:hover { color: var(--ink); border-left-color: var(--line); }
+  .nav-link.active { color: var(--cobalt); border-left-color: var(--cobalt); }
+
+  .sidebar-bottom { font-size: 0.8rem; color: var(--ink-soft); }
+  .sidebar-bottom a { display: block; margin-bottom: 0.3rem; }
+
+  main { padding: 3.5rem 3rem 6rem 3rem; max-width: 1100px; }
+
+  section { margin-bottom: 4.5rem; scroll-margin-top: 2rem; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cobalt);
+    margin-bottom: 0.6rem;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero h1 { font-size: 2.1rem; max-width: 30ch; }
+  .hero .positioning {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-top: 0.75rem;
+  }
+  .hero .meta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .meta-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.75rem 0 1.5rem 0;
+  max-width: 52ch;
+}
+  .meta-item { margin-bottom: 0.9rem; }
+  .meta-item:last-child { margin-bottom: 0; }
+  .meta-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cobalt);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 2rem;
+    margin-top: 1.5rem;
+  }
+  .skill-group .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.4rem;
+  }
+  .skill-group .items { font-size: 0.92rem; color: var(--ink); }
+
+  /* ---------- Work categories ---------- */
+  .category { margin-bottom: 2.75rem; }
+  .category-title {
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+ .category-desc {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin: -0.5rem 0 1.5rem 0;
+  max-width: var(--max-text);
+}
+.subgroup-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1.75rem 0 1rem 0;
+}
+.key-work-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--key-work-blue);
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+  .category-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    width: 6px;
+    height: 6px;
+    background: var(--pale-blue);
+    border: 1px solid var(--cobalt);
+    border-radius: 1px;
+  }
+
+  .project-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-row:last-child { border-bottom: none; }
+
+  .project-title-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .project-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .project-title a { color: inherit; text-decoration-color: rgba(163,79,54,0.35); }
+  .project-title a:hover { color: var(--cobalt); }
+
+  .project-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .project-desc { font-size: 0.92rem; color: var(--ink-soft); max-width: var(--max-text); margin: 0; }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.15rem;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cobalt);
+    background: var(--pale-blue);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  /* ---------- Research / Experience / Education ---------- */
+  .timeline-item { margin-bottom: 1.25rem; }
+  .timeline-item .when {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+  .timeline-item .what { font-family: 'Fraunces', serif; font-size: 1rem; margin: 0.15rem 0; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 820px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .sidebar-top { display: flex; align-items: baseline; gap: 0.75rem; }
+    .sidebar-top .name { font-size: 1.3rem; }
+    .sidebar-top .role, .sidebar-bottom { display: none; }
+    nav.toc { flex-direction: row; flex-wrap: wrap; gap: 0 1rem; }
+    .nav-link { border-left: none; padding-left: 0; border-bottom: 2px solid transparent; }
+    .nav-link.active { border-left-color: transparent; border-bottom-color: var(--cobalt); }
+    main { padding: 2.5rem 1.5rem 4rem 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <p class="name">Sonia Michot Roberto</p>
+      <p class="role">Technical Writer</p>
+      <nav class="toc">
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#work">Work</a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="https://www.linkedin.com/in/sonia-michot-roberto-031b3720/">LinkedIn</a>
+      <a href="mailto:sonieli_85@hotmail.com">Email</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ABOUT / HERO -->
+    <section id="about" class="hero">
+      <p class="eyebrow">Portfolio — v2026.09</p>
+      <h1>Technical Writer with a background in process design and automation</h1>
+      <p class="positioning">
+        I work on technical documentation for complex products and systems, keeping content accurate, consistent, and maintainable. I also use Python, PowerShell, and AI-assisted development to automate documentation and process-related tasks.
+      </p>
+      <p class="positioning">
+        Before moving into technical writing, I completed a PhD in Civil Engineering and published three peer-reviewed papers. That research background shaped the way I work: I verify information before documenting it — testing procedures directly and understanding how systems actually work — rather than relying only on secondhand explanations.
+      </p>
+      <p class="positioning">
+        I've spent 4+ years at Infovista, working on Ativa, a telecom/network performance management platform.
+      </p>
+           <hr class="meta-divider">
+      <div class="meta">
+        <div class="meta-item">
+          <span class="meta-label">Availability</span>
+          <span>Remote-first, Europe-based. Open to hybrid roles with occasional travel.</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Background</span>
+          <span>Process design, automation, information architecture</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="label">Technical Documentation</div>
+          <div class="items">Installation & upgrade, configuration, administrator, and user guides, release notes, API & authentication documentation, troubleshooting & operational documentation
+        </div>
+        </div>
+          <div class="skill-group">
+            <div class="label">Information Architecture</div>
+           <div class="items">Taxonomy design, label-driven governance, style systems and format mapping</div>
+       </div>
+      <div class="skill-group">
+        <div class="label">Editing & Content Quality</div>
+        <div class="items">Structural editing, plain language, technical accuracy review</div>
+      </div>
+
+        <div class="skill-group">
+          <div class="label">Documentation Systems & Automation</div>
+          <div class="items">Publishing systems (CSS3 Paged Media), documentation automation, governed CI/CD publishing workflows (Azure DevOps Repos, Pipelines, Boards)</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">Tools</div>
+        <div class="items">Confluence, MadCap Flare, FrameMaker, HTML, Markdown, Python, PowerShell, YAML, Git, Azure DevOps, REST API, AI-assisted development</div>
+      </div>
+
+       <div class="skill-group">
+          <div class="label">Systems Documented</div>
+          <div class="items">Kubernetes, Rancher, Istio, Docker (container images), Keycloak (OIDC, IAM), Grafana, Azure DevOps</div>
+          </div>
+      </div>
+    </section>
+
+   <!-- WORK -->
+    <section id="work">
+      <h2>Work</h2>
+
+      <div class="category">
+        <h3 class="category-title">Technical Documentation</h3>
+        <p class="category-desc">Making complex technical products easier to understand and use.</p>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="key-work-badge">Key work</span>
+            <span class="project-title"><a href="projects/api-documentation.html">API Documentation — OIDC/JWT Authentication via Keycloak</a></span>
+          </div>
+          <p class="project-desc">Documentation for API authentication using OIDC and JWT tokens with Keycloak, plus REST endpoint reference documentation for requests, responses, and error codes.</p>
+          <div class="tags"><span class="tag">#api</span><span class="tag">#oidc</span><span class="tag">#rest</span><span class="tag">#auth</span><span class="tag">#sso</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/troubleshooting-operations.html">Troubleshooting & Operational Documentation</a></span>
+          </div>
+          <p class="project-desc">Recovery procedures for a Kubernetes-based platform — recovering a lost node via Terraform, and a pod stuck in terminating phase</p>
+          <div class="tags"><span class="tag">#troubleshooting</span><span class="tag">#operations</span><span class="tag">#kubernetes</span></div>
+        </div>
+        </div>
+
+      <div class="category">
+        <h3 class="category-title">Information Architecture &amp; Content Strategy</h3>
+        <p class="category-desc">Making complex information easier to navigate, understand, and maintain.</p>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="key-work-badge">Key work</span>
+            <span class="project-title"><a href="projects/guide-rewrite.html">Large-scale guide restructuring</a></span>
+          </div>
+          <p class="project-desc">Structural editing across 4 core guides (Installation & Upgrade, Configuration, Site Preparation, Release Notes) — reordering steps, prerequisites, cross-references, and terminology.</p>
+          <div class="tags"><span class="tag">#editing</span><span class="tag">#structure</span><span class="tag">#plain-language</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/customer-portal-ia-audit.html">Customer Portal: Information Architecture & Quality Audit</a></span>
+          </div>
+          <p class="project-desc">Reviewed the information architecture of a customer-facing documentation portal covering current and legacy products, then performed a quality audit covering navigation, search, content organization, and metadata.</p>
+          <div class="tags"><span class="tag">#content-strategy</span><span class="tag">#information-architecture</span><span class="tag">#content-audit</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/platform-migrations.html">FrameMaker → MadCap Flare → Confluence</a></span>
+          </div>
+          <p class="project-desc">Two consecutive authoring-platform migrations: 7 guides from FrameMaker to MadCap Flare, followed by 30+ guides from MadCap Flare to Confluence.</p>
+          <div class="tags"><span class="tag">#content-migration</span><span class="tag">#style-mapping</span><span class="tag">#authoring-tools</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3 class="category-title">Documentation Systems &amp; Automation</h3>
+        <p class="category-desc">Using automation and systems thinking to make documentation workflows reliable and maintainable.</p>
+
+        <h4 class="subgroup-title">Automation & Tooling</h4>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="key-work-badge">Key work</span>
+            <span class="project-title"><a href="projects/mdm-generator.html">MDM Table Catalog Generator</a></span>
+          </div>
+          <p class="project-desc">AI-assisted Python tool that turns a consolidated data catalog into clear, searchable HTML documentation.</p>
+          <div class="tags"><span class="tag">#python</span><span class="tag">#data-quality</span><span class="tag">#automation</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/content-quality-tooling.html">Content Quality Tooling</a></span>
+          </div>
+          <p class="project-desc">A small automation toolkit for detecting broken links in documentation exports and cleaning corrupted text in Confluence.</p>
+          <div class="tags"><span class="tag">#powershell</span><span class="tag">#python</span><span class="tag">#automation</span></div>
+        </div>
+
+        <h4 class="subgroup-title">Workflow & Governance</h4>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="key-work-badge">Key work</span>
+            <span class="project-title"><a href="projects/azure-sharepoint-pipeline.html">Azure DevOps → SharePoint Sync Pipeline</a></span>
+          </div>
+          <p class="project-desc">A controlled documentation workflow with a CI/CD pipeline that syncs approved content from an Azure Repo to SharePoint.</p>
+          <div class="tags"><span class="tag">#cicd</span><span class="tag">#automation</span><span class="tag">#governance</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/release-documentation-lifecycle.html">Release Documentation Lifecycle</a></span>
+          </div>
+          <p class="project-desc">A release-based documentation workflow I managed across 30+ product guides, covering request routing, publishing, change tracking, release status, and customer issue reporting.</p>
+          <div class="tags"><span class="tag">#documentation-operations</span><span class="tag">#governance</span><span class="tag">#release-management</span></div>
+        </div>
+
+        <h4 class="subgroup-title">Publishing & Delivery</h4>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="key-work-badge">Key work</span>
+            <span class="project-title"><a href="projects/css-pdf-export.html">CSS / PDF Export System</a></span>
+          </div>
+          <p class="project-desc">Built a CSS3 Paged Media stylesheet from scratch to turn Confluence content into publication-quality PDFs, handling multi-page tables of contents, wide tables, and text encoding issues.</p>
+          <div class="tags"><span class="tag">#css</span><span class="tag">#pdf-export</span><span class="tag">#automation</span></div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-title-line">
+            <span class="project-title"><a href="projects/offline-html-kit.html">Offline HTML Documentation Kit</a></span>
+          </div>
+          <p class="project-desc">A custom toolkit for delivering product documentation offline in air-gapped environments, combining multiple guides into a single self-contained package.</p>
+          <div class="tags"><span class="tag">#distribution</span><span class="tag">#offline</span><span class="tag">#config-driven</span></div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <footer>
+      <p class="mono">Site hand-built in HTML/CSS — hosted on GitHub Pages.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Highlights the nav link matching the section currently in view
+  const sections = document.querySelectorAll('main section[id]');
+  const links = document.querySelectorAll('.nav-link');
+  const setActive = () => {
+    let current = sections[0]?.id;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120) current = sec.id;
+    });
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  };
+  document.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
